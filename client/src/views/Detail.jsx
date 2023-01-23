@@ -1,19 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, Link, useNavigate } from 'react-router-dom'
+import DeleteButton from '../components/DeleteButton';
 
 export default function Detail() {
   const [product, setProduct] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
-  
-  const deleteProduct = (productId) => {
-    axios.delete(`http://localhost:8000/api/products/${productId}`)
-      .then(() => {
-        navigate('/')
-      })
-      .catch(err => console.error(err));
-  }
 
   useEffect(() => {
     axios.get(`http://localhost:8000/api/products/${id}`)
@@ -34,7 +27,7 @@ export default function Detail() {
       <p className='my-2'><span className='underline'>Description</span>: {product.description}</p>
       <div className='flex gap-4  mt-5'>
         <Link to={`/products/${id}/edit`} className='btn btn-sm btn-outline btn-warning'>Edit</Link>
-        <button className="btn btn-outline btn-error btn-sm"onClick={e => deleteProduct(product._id)}>Delete</button>
+        <DeleteButton productId={product._id} successCallback={() => navigate('/')}/>
       </div>
     </div>
   )
