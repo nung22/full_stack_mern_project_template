@@ -1,2 +1,1 @@
-# full_stack_mern_project_template
- 
+# Full Stack MERN Project Template
