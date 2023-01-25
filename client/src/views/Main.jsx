@@ -1,46 +1,40 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import ProductForm from "../components/ProductForm";
-import ProductList from "../components/ProductList";
+import ExampleList from "../components/ExampleList";
+import { Link } from 'react-router-dom'
+
 
 export default function Main() {
-  const [products, setProducts] = useState([]);
+  const [examples, setExamples] = useState([]);
   const [loaded, setLoaded] = useState(false);
+
+  // function to compare example names & sort by alphabetical order
+  const compareName = (a, b) => {
+    return a.name < b.name
+      ? -1
+      : 1;
+  }
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/products")
+      .get("http://localhost:8000/api/examples")
       .then((res) => {
-        setProducts(res.data);
+        setExamples(res.data.sort(compareName));
+        console.log('New List')
         setLoaded(true);
       })
       .catch((err) => console.error(err));
-  }, [products]);
+  }, [loaded]);
 
-  const removeFromDOM = (productId) => {
-    setProducts(products.filter((product) => product._id !== productId));
-  };
-
-  const createProduct = (product) => {
-    //make a post request to create a new product
-    axios
-      .post("http://localhost:8000/api/products/new", product)
-      .then((res) => {
-        setProducts([...products, res.data]);
-      })
-      .catch((err) => console.log(err));
-    //clears text from inputs & resets state variables
-    e.target.reset();
+  const removeFromDOM = (exampleId) => {
+    setExamples(examples.filter((example) => example._id !== exampleId));
   };
 
   return (
     <div>
-      <h1 className="text-center text-2xl font-semibold">Product Manager</h1>
-      <ProductForm onSubmitProp={createProduct} initialTitle="" 
-      initialPrice="" initialDescription=""/>
-      <hr className="my-8" />
+      <Link to={`/examples/new`} className='btn btn-sm btn-accent'>Add Example</Link>
       {loaded && (
-        <ProductList products={products} removeFromDOM={removeFromDOM} />
+        <ExampleList examples={examples} removeFromDOM={removeFromDOM} />
       )}
     </div>
   );

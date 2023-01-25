@@ -10,18 +10,23 @@ const getAllExamples = async () => {
   return examples;
 };
 
-const getExampleById = async (data) => {
-  const example = await Example.findById(data);
+const getExampleById = async (exampleId) => {
+  const example = await Example.findById(exampleId);
   return example;
 };
 
-const deleteExampleById = async (data) => {
-  const deletedExample = await Example.findByIdAndDelete(data);
+const deleteExampleById = async (exampleId) => {
+  const deletedExample = await Example.findByIdAndDelete(exampleId);
   return deletedExample;
 };
 
-const updateExampleById = async (data) => {
-  const updatedExample = await Example.findByIdAndUpdate(data);
+const updateExampleById = async (exampleId, data) => {
+  const updatedExample = await Example.findByIdAndUpdate(exampleId, data,
+    {
+      // re-run our validations
+      runValidators: true,  
+    }
+    );
   return updatedExample;
 };
 

@@ -39,11 +39,7 @@ const handleUpdateExampleById = async (req, res) => {
   try {
     const updatedExample = await updateExampleById(
       req.params.id,
-      req.body,
-      {
-        // re-run our validations
-        runValidators: true,  
-      }
+      req.body
     );
     return res.json(updatedExample);
   } catch (err) {
