@@ -11,7 +11,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/examples"/>}/>
         <Route element={<Main/>} path="/examples" />
-        <Route element={<Create/>} path="/authors/new" />
+        <Route element={<Create/>} path="/examples/new" />
         <Route element={<Detail/>} path="/examples/:id" />
         <Route element={<Update/>} path="/examples/:id/edit" />
         <Route element={<Error/>} path="*" />
