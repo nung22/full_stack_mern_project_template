@@ -9,7 +9,7 @@ const PORT = 8000;
 // invokes express
 const app = express();
 
-require('./server/config/mongoose.config');
+require('./config/mongoose.config');
 // enables cross-origin requests
 app.use(cors());
 // allows express to recognize incoming Request Objects as JSON Objects
