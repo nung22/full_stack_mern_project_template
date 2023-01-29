@@ -17,13 +17,12 @@ const handleCreateExample = async (req, res) => {
 };
 
 const handleGetAllExamples = async (req, res) => {
-  const examples = await getAllExamples();
-  return res.json(examples);
-};
-
-const handleGetExampleById = async (req, res) => {
-  const example = await getExampleById(req.params.id);
-  return res.json(example);
+  try {
+    const examples = await getAllExamples();
+    return res.json(examples);
+  } catch (err) {
+    return res.status(400).json(err);
+  }
 };
 
 const handleDeleteExampleById = async (req, res) => {
